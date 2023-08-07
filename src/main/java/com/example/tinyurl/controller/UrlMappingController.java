@@ -1,8 +1,11 @@
 package com.example.tinyurl.controller;
 
 import com.example.tinyurl.service.UrlMappingService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 public class UrlMappingController {
@@ -16,12 +19,12 @@ public class UrlMappingController {
     }
 
     @GetMapping("/{shortUrl}")
-    public String redirectToLongUrl(@PathVariable String shortUrl) {
+    public void redirectToLongUrl(@PathVariable String shortUrl, HttpServletResponse response) throws IOException {
         String longUrl = urlMappingService.getLongUrl(shortUrl);
         if (longUrl != null) {
-            return "redirect:" + longUrl;
+            response.sendRedirect(longUrl);
         } else {
-            return "Short URL not found!";
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Short URL not found!");
         }
     }
 }

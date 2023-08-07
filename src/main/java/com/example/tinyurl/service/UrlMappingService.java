@@ -10,7 +10,7 @@ import java.util.Random;
 @Service
 public class UrlMappingService {
 
-    private static final String BASE_URL = "http://dee.com/";
+    private static final String BASE_URL = "http://localhost:8080/";
     private static final int SHORT_URL_LENGTH = 6;
     @Autowired
     private UrlMappingRepository urlMappingRepository;
